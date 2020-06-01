@@ -1,0 +1,54 @@
+# Created at 2019-12-02T14:06:04.340
+Exception in thread "main" java.lang.reflect.InvocationTargetException
+
+# Created at 2019-12-02T14:06:04.340
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+
+# Created at 2019-12-02T14:06:04.342
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+
+# Created at 2019-12-02T14:06:04.343
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+
+# Created at 2019-12-02T14:06:04.344
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+
+# Created at 2019-12-02T14:06:04.344
+	at java.instrument/sun.instrument.InstrumentationImpl.loadClassAndStartAgent(InstrumentationImpl.java:513)
+
+# Created at 2019-12-02T14:06:04.344
+	at java.instrument/sun.instrument.InstrumentationImpl.loadClassAndCallPremain(InstrumentationImpl.java:525)
+
+# Created at 2019-12-02T14:06:04.345
+Caused by: java.lang.RuntimeException: Class java/lang/UnknownError could not be instrumented.
+
+# Created at 2019-12-02T14:06:04.345
+	at org.jacoco.agent.rt.internal_c13123e.core.runtime.ModifiedSystemClassRuntime.createFor(ModifiedSystemClassRuntime.java:140)
+
+# Created at 2019-12-02T14:06:04.345
+	at org.jacoco.agent.rt.internal_c13123e.core.runtime.ModifiedSystemClassRuntime.createFor(ModifiedSystemClassRuntime.java:101)
+
+# Created at 2019-12-02T14:06:04.345
+	at org.jacoco.agent.rt.internal_c13123e.PreMain.createRuntime(PreMain.java:55)
+
+# Created at 2019-12-02T14:06:04.346
+	at org.jacoco.agent.rt.internal_c13123e.PreMain.premain(PreMain.java:47)
+
+# Created at 2019-12-02T14:06:04.346
+	... 6 more
+
+# Created at 2019-12-02T14:06:04.347
+Caused by: java.lang.NoSuchFieldException: $jacocoAccess
+
+# Created at 2019-12-02T14:06:04.348
+	at java.base/java.lang.Class.getField(Class.java:1999)
+
+# Created at 2019-12-02T14:06:04.349
+	at org.jacoco.agent.rt.internal_c13123e.core.runtime.ModifiedSystemClassRuntime.createFor(ModifiedSystemClassRuntime.java:138)
+
+# Created at 2019-12-02T14:06:04.351
+	... 9 more
+
+# Created at 2019-12-02T14:06:04.555
+Aborted (core dumped)
+

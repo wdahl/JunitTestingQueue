@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Queue.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">junit-assignment</a> &gt; <a href="index.source.html" class="el_package">sampleQueue</a> &gt; <span class="el_source">Queue.java</span></div><h1>Queue.java</h1><pre class="source lang-java linenums">package sampleQueue;
+
+/******************************************************************************
+ *  Compilation:  javac Queue.java
+ *  Execution:    java Queue &lt; input.txt
+ *  Data files:   https://introcs.cs.princeton.edu/java/43stack/tobe.txt
+ *
+ *  A generic queue, implemented using a linked list.
+ *
+ *  % java Queue &lt; tobe.txt
+ *  to be or not to be (2 left on queue)
+ *
+ ******************************************************************************/
+
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
+/**
+ * The {@code Queue} class represents a first-in-first-out (FIFO) queue of
+ * generic items. It supports the usual &lt;em&gt;enqueue&lt;/em&gt; and &lt;em&gt;dequeue&lt;/em&gt;
+ * operations, along with methods for peeking at the top item, testing if the
+ * queue is empty, getting the number of items in the queue, and iterating over
+ * the items in FIFO order.
+ * &lt;p&gt;
+ * This implementation uses a singly-linked list with a nested class for
+ * linked-list nodes. The &lt;em&gt;enqueue&lt;/em&gt;, &lt;em&gt;dequeue&lt;/em&gt;, &lt;em&gt;peek&lt;/em&gt;,
+ * &lt;em&gt;size&lt;/em&gt;, and &lt;em&gt;is-empty&lt;/em&gt; operations all take constant time in the
+ * worst case.
+ * &lt;p&gt;
+ * For additional documentation, see
+ * &lt;a href=&quot;https://introcs.cs.princeton.edu/java/43stack&quot;&gt;Section 4.3&lt;/a&gt; of
+ * &lt;i&gt;Computer Science: An Interdisciplinary Approach&lt;/i&gt; by Robert Sedgewick
+ * and Kevin Wayne.
+ *
+ * @param &lt;Item&gt; the generic type of an item in this queue
+ * @author Robert Sedgewick
+ * @author Kevin Wayne
+ * @author Ninad Chaudhari, University at Albany
+ */
+public class Queue&lt;Item&gt; implements Iterable&lt;Item&gt; {
+    private int n; // number of elements on queue
+    private int maxLength; // max possible length of queue
+    private Node first; // beginning of queue
+    private Node last; // end of queue
+
+    // helper linked list class
+<span class="fc" id="L47">    private class Node {</span>
+        private Item item; // the item in the node
+        private Node next; // reference to next item
+    }
+
+    /**
+     * Initializes an empty queue.
+     */
+<span class="fc" id="L55">    public Queue() {</span>
+<span class="fc" id="L56">        first = null;</span>
+<span class="fc" id="L57">        last = null;</span>
+<span class="fc" id="L58">        n = 0;</span>
+<span class="fc" id="L59">        this.maxLength = Integer.MAX_VALUE;</span>
+<span class="fc" id="L60">    }</span>
+
+    /**
+     * Initializes an queue with (inclusive) maxLength as maximum number of elements
+     * allowed in queue
+     */
+<span class="fc" id="L66">    public Queue(int maxLength) {</span>
+<span class="fc" id="L67">        first = null;</span>
+<span class="fc" id="L68">        last = null;</span>
+<span class="fc" id="L69">        n = 0;</span>
+<span class="fc" id="L70">        this.maxLength = maxLength;</span>
+<span class="fc" id="L71">    }</span>
+
+    /**
+     * Returns true if this queue is empty.
+     *
+     * @return {@code true} if this queue is empty; {@code false} otherwise
+     */
+    public boolean isEmpty() {
+<span class="fc bfc" id="L79" title="All 2 branches covered.">        return first == null;</span>
+    }
+
+    /**
+     * Returns the number of items in this queue.
+     *
+     * @return the number of items in this queue
+     */
+    public int size() {
+<span class="nc" id="L88">        return this.length();</span>
+    }
+
+    /**
+     * Returns the number of items in this queue.
+     *
+     * @return the number of items in this queue
+     */
+    public int length() {
+<span class="fc" id="L97">        return n;</span>
+    }
+
+    /**
+     * Returns the item least recently added to this queue.
+     *
+     * @return the item least recently added to this queue
+     * @throws NoSuchElementException if this queue is empty
+     */
+    public Item peek() {
+<span class="fc bfc" id="L107" title="All 2 branches covered.">        if (isEmpty())</span>
+<span class="fc" id="L108">            throw new NoSuchElementException(&quot;Queue underflow&quot;);</span>
+<span class="fc" id="L109">        return first.item;</span>
+    }
+
+    /**
+     * Add the item to the queue.
+     * 
+     */
+    public void enqueue(Item item) {
+<span class="fc bfc" id="L117" title="All 2 branches covered.">        if (this.n == this.maxLength)</span>
+<span class="fc" id="L118">            throw new RuntimeException(&quot;Maximum Size of queue reached, cannot add more.&quot;);</span>
+<span class="fc" id="L119">        Node oldlast = last;</span>
+<span class="fc" id="L120">        last = new Node();</span>
+<span class="fc" id="L121">        last.item = item;</span>
+<span class="fc" id="L122">        last.next = null;</span>
+<span class="fc bfc" id="L123" title="All 2 branches covered.">        if (isEmpty())</span>
+<span class="fc" id="L124">            first = last;</span>
+        else
+<span class="fc" id="L126">            oldlast.next = last;</span>
+<span class="fc" id="L127">        n++;</span>
+<span class="fc" id="L128">    }</span>
+
+    /**
+     * Removes and returns the item on this queue that was least recently added.
+     *
+     * @return the item on this queue that was least recently added
+     * @throws NoSuchElementException if this queue is empty
+     */
+    public Item dequeue() {
+        // !!!!!!!!!!!!!!!!
+        // This part was commented by someone in your team
+        // which caused the bug.!!!!!!!!!!!
+        // !!!!!!!!!!!!!!!!
+        //
+        // if (isEmpty())
+        // throw new NoSuchElementException(&quot;Queue underflow&quot;);
+        //
+        // !!!!!!!!!!!!!!!!
+        // End
+        // !!!!!!!!!!!!!!!!
+<span class="fc" id="L148">        Item item = first.item;</span>
+<span class="fc" id="L149">        first = first.next;</span>
+<span class="fc" id="L150">        n--;</span>
+<span class="fc bfc" id="L151" title="All 2 branches covered.">        if (isEmpty())</span>
+<span class="fc" id="L152">            last = null; // to avoid loitering</span>
+<span class="fc" id="L153">        return item;</span>
+    }
+
+    /**
+     * Returns a string representation of this queue.
+     *
+     * @return the sequence of items in FIFO order, separated by spaces
+     */
+    public String toString() {
+<span class="nc" id="L162">        StringBuilder s = new StringBuilder();</span>
+<span class="nc bnc" id="L163" title="All 2 branches missed.">        for (Item item : this)</span>
+<span class="nc" id="L164">            s.append(item + &quot; &quot;);</span>
+<span class="nc" id="L165">        return s.toString();</span>
+    }
+
+    /**
+     * Removes all items from the queue.
+     */
+    public void removeAll() {
+<span class="fc bfc" id="L172" title="All 2 branches covered.">        while (this.length() != 0) {</span>
+<span class="fc" id="L173">            this.dequeue();</span>
+        }
+
+<span class="fc" id="L176">    }</span>
+
+    /**
+     * Returns an iterator that iterates over the items in this queue in FIFO order.
+     *
+     * @return an iterator that iterates over the items in this queue in FIFO order
+     */
+    public Iterator&lt;Item&gt; iterator() {
+<span class="nc" id="L184">        return new ListIterator();</span>
+    }
+
+    // an iterator, doesn't implement remove() since it's optional
+<span class="nc" id="L188">    private class ListIterator implements Iterator&lt;Item&gt; {</span>
+<span class="nc" id="L189">        private Node current = first; // node containing current item</span>
+
+        public boolean hasNext() {
+<span class="nc bnc" id="L192" title="All 2 branches missed.">            return current != null;</span>
+        }
+
+        public void remove() {
+<span class="nc" id="L196">            throw new UnsupportedOperationException();</span>
+        }
+
+        public Item next() {
+<span class="nc bnc" id="L200" title="All 2 branches missed.">            if (!hasNext())</span>
+<span class="nc" id="L201">                throw new NoSuchElementException();</span>
+<span class="nc" id="L202">            Item item = current.item;</span>
+<span class="nc" id="L203">            current = current.next;</span>
+<span class="nc" id="L204">            return item;</span>
+        }
+    }
+
+    /**
+     * Unit tests the {@code Queue} data type.
+     */
+    public static void main(String[] args) {
+<span class="nc" id="L212">        Queue&lt;String&gt; queue = new Queue&lt;String&gt;();</span>
+        // System.out.println(queue.dequeue());
+<span class="nc" id="L214">        System.out.println(&quot;(&quot; + queue.size() + &quot; left on queue)&quot;);</span>
+<span class="nc" id="L215">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.4.201905082037</span></div></body></html>

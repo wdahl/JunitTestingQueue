@@ -1,0 +1,11 @@
+-------------------------------------------------------------------------------
+Test set: sampleQueue.QueueTest
+-------------------------------------------------------------------------------
+Tests run: 11, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.113 s <<< FAILURE! - in sampleQueue.QueueTest
+throwsExceptionWhenDequeued  Time elapsed: 0.025 s  <<< FAILURE!
+org.opentest4j.AssertionFailedError: Unexpected exception type thrown ==> expected: <java.util.NoSuchElementException> but was: <java.lang.NullPointerException>
+	at sampleQueue.QueueTest$WhenNew.throwsExceptionWhenDequeued(QueueTest.java:90)
+Caused by: java.lang.NullPointerException
+	at sampleQueue.QueueTest$WhenNew.lambda$0(QueueTest.java:90)
+	at sampleQueue.QueueTest$WhenNew.throwsExceptionWhenDequeued(QueueTest.java:90)
+
